@@ -1,11 +1,13 @@
 'use strict';
+
+var shopHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm',];
+
+
 var parentEl = document.getElementById('parentElement');
 
 var child = document.createElement('h1');
 child.textContent = 'Seattle: ';
 parentEl.appendChild(child);
-
-var shopHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm',];
 
 var seattle = {
   shopHours,
@@ -18,9 +20,7 @@ var seattle = {
     var randNum = Math.floor(Math.random() * (this.maxCust - this.minCust) + this.minCust * this.avgCookie);
     this.sumRandNum += randNum;
     return randNum;
-
   },
-
 
   render: function () {
     for (var i = 0; i < this.shopHours.length; i++) {
