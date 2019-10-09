@@ -55,7 +55,7 @@ var renderHeaderRow = function() {
   }
 
   var tdElem = document.createElement('td');
-  tdElem.textContent = 'Total';
+  tdElem.textContent = 'Daily Location Total';
   trEL.appendChild(tdElem);
   ShopLocation.tabledataEl.appendChild(trEL);
 };
@@ -83,7 +83,7 @@ ShopLocation.prototype.renderShopRow = function() {
 var renderFooterRow = function() {
   var trEL = document.createElement('tr');
   var tdEl = document.createElement('td');
-  tdEl.textContent = 'Hourly Totals: ';
+  tdEl.textContent = 'Totals: ';
   trEL.appendChild(tdEl);
 
   for ( var i = 0; i <ShopLocation.hours.length; i++) {
@@ -103,7 +103,7 @@ var renderFooterRow = function() {
   ShopLocation.tabledataEl.appendChild(trEL);
 
 };
-renderFooterRow();
+
 
 new ShopLocation('Seattle', 23, 65, 6.3);
 new ShopLocation('Tokyo', 3, 24, 1.2);
@@ -111,6 +111,7 @@ new ShopLocation('Dubai', 11, 38, 3.7);
 new ShopLocation('Paris', 20, 38, 2.3);
 new ShopLocation('Lima', 2, 16, 4.6);
 
+renderFooterRow();
 console.log(ShopLocation.allShops);
 
 
