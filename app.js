@@ -126,14 +126,34 @@ var renderFooterRow = function() {
 
 renderFooterRow();
 
-
-
-
-
-// new ShopLocation('Seattle', 23, 65, 6.3);
-// new ShopLocation('Tokyo', 3, 24, 1.2);
-// new ShopLocation('Dubai', 11, 38, 3.7);
-// new ShopLocation('Paris', 20, 38, 2.3);
-// new ShopLocation('Lima', 2, 16, 4.6);
-
 console.log(ShopLocation.allShops);
+
+
+// FORM STARTS HERE
+
+var userForm = document.getElementById('userForm');
+userForm.addEventListener('submit', handleSubmit);
+
+
+function handleSubmit(event) {
+  event.preventDefault();
+  console.log('ev target El name: ', event.target.inputElementName.value);
+  var shopName = event.target.inputElName.value;
+  var minCust = event.target.inputElMinCust.value;
+  var maxCust = event.target.inputElMaxCust.value;
+  var avgCookies = event.target.inputAvgCookies.value;
+
+  if(isNaN(minCust)) {
+    alert('No. Enter a number.');
+    event.target.inputElMinCust.value = null;
+  }
+
+  renderNewRow.newRow = document.getElementById('userForm');
+  var renderNewRow = function() {
+    var trEL = document.createElement('tr');
+    var tdEl = document.createElement('td');
+    tdEl.textContent = 'New Row: ';
+    trEL.appendChild(tdEl);
+  };
+  renderNewRow();
+}
