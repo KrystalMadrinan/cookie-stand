@@ -5,7 +5,7 @@ ShopLocation.hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm',
 
 ShopLocation.allShops = [];
 ShopLocation.tabledataEl = document.getElementById('tableData');
-ShopLocation.allShopsTotal =[];
+ShopLocation.allShopsTotal = [];
 
 
 // CONSTRUCTOR FUNCTION
@@ -28,21 +28,21 @@ console.log('ShopLocation.allshops: ', ShopLocation.allShops);
 
 
 // random number creator
-var randomCustomerNum = function(min, max) {
-  return Math.random() * ((max-min) + 1) + min;
+var randomCustomerNum = function (min, max) {
+  return Math.random() * ((max - min) + 1) + min;
 };
 
-ShopLocation.prototype.generateCookiesPerHour = function() {
+ShopLocation.prototype.generateCookiesPerHour = function () {
   for (var i = 0; i < ShopLocation.hours.length; i++) {
     var cookie = Math.ceil(this.avgCookie * randomCustomerNum(this.minCust, this.maxCust));
     this.totalCookiesPerHour.push(cookie);
     this.grandTotalCookies += cookie;
-    ShopLocation.allShopsTotal =+ cookie;
+    ShopLocation.allShopsTotal = + cookie;
   }
   console.log('+++++++++++', this.grandTotalCookies);
 };
 
-var renderHeaderRow = function() {
+var renderHeaderRow = function () {
   var trEL = document.createElement('tr');
   var thEL = document.createElement('th');
   thEL.textContent = 'Location';
@@ -62,13 +62,13 @@ var renderHeaderRow = function() {
 renderHeaderRow();
 
 
-ShopLocation.prototype.renderShopRow = function() {
+ShopLocation.prototype.renderShopRow = function () {
   var trEL = document.createElement('tr');
   var tdEl = document.createElement('td');
   tdEl.textContent = this.shopName;
   trEL.appendChild(tdEl);
 
-  for(var i = 0; i < this.totalCookiesPerHour.length; i++) {
+  for (var i = 0; i < this.totalCookiesPerHour.length; i++) {
     tdEl = document.createElement('td');
     tdEl.textContent = this.totalCookiesPerHour[i];
     trEL.appendChild(tdEl);
@@ -86,13 +86,13 @@ new ShopLocation('Dubai', 11, 38, 3.7);
 new ShopLocation('Paris', 20, 38, 2.3);
 new ShopLocation('Lima', 2, 16, 4.6);
 
-var renderFooterRow = function() {
+var renderFooterRow = function () {
   var trEL = document.createElement('tr');
   var tdEl = document.createElement('td');
   tdEl.textContent = 'Totals: ';
   trEL.appendChild(tdEl);
 
-  for ( var i = 0; i < ShopLocation.hours.length; i++) {
+  for (var i = 0; i < ShopLocation.hours.length; i++) {
     var shopHourlyTotals = 0;
     var td = document.createElement('td');
 
@@ -102,9 +102,9 @@ var renderFooterRow = function() {
     td.textContent = shopHourlyTotals;
     trEL.appendChild(td);
   }
-
+  // GRAND TOTAL PROBLEM MOST LIKELY HERE
   var tdElem = document.createElement('td');
-  tdElem.textContent = ShopLocation.allShopsTotal;
+  tdElem.textContent = ShopLocation.grandTotalCookies; // changed this from allshopstotal, now nothing showing up at all
   trEL.appendChild(tdElem);
   ShopLocation.tabledataEl.appendChild(trEL);
 
@@ -137,19 +137,29 @@ userForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
+  console.log(event);
   console.log('ev target El name: ', event.target.inputElementName.value);
-  var shopName = event.target.inputElName.value;
-  var minCust = event.target.inputElMinCust.value;
-  var maxCust = event.target.inputElMaxCust.value;
-  var avgCookies = event.target.inputAvgCookies.value;
 
-  if(isNaN(minCust)) {
+  this.shopName = event.target.inputElName.value;
+  this.minCust = event.target.inputElMinCust.value;
+  this.maxCust = event.target.inputElMaxCust.value;
+  this.avgCookie = event.target.inputAvgCookie.value;
+
+  // var shopName = event.target.inputElName.value;
+  // var minCust = event.target.inputElMinCust.value;
+  // var maxCust = event.target.inputElMaxCust.value;
+  // var avgCookies = event.target.inputAvgCookies.value;
+
+  ShopLocation.newRow = (this.shopName, this.minCust, this.maxCust, this.avgCookie);
+
+
+  if (isNaN(this.minCust, this.maxCust, this.avgCookie)) {
     alert('No. Enter a number.');
     event.target.inputElMinCust.value = null;
   }
 
   renderNewRow.newRow = document.getElementById('userForm');
-  var renderNewRow = function() {
+  var renderNewRow = function () {
     var trEL = document.createElement('tr');
     var tdEl = document.createElement('td');
     tdEl.textContent = 'New Row: ';
@@ -157,3 +167,5 @@ function handleSubmit(event) {
   };
   renderNewRow();
 }
+
+
